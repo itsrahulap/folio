@@ -1,0 +1,99 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: var(--bg);
+  background-image: var(--bg-gradient);
+  background-size: var(--bg-size, auto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+
+  .ls-content {
+    width: min(480px, 90vw);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* Brand */
+  .ls-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+
+    .ls-cursor {
+      color: var(--primary);
+      animation: blink 1s step-end infinite;
+      font-weight: 400;
+    }
+  }
+
+  /* Boot lines */
+  .ls-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 92px; /* reserve space so layout doesn't jump */
+
+    .ls-line {
+      font-size: 0.78rem;
+      line-height: 1.5;
+
+      .ls-ts  { color: var(--muted); opacity: 0.7; }
+      .ls-msg { color: var(--outline); }
+    }
+  }
+
+  /* Progress bar */
+  .ls-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .ls-bar {
+      font-size: 0.85rem;
+      color: var(--primary);
+      letter-spacing: -1px;
+      line-height: 1;
+
+      .ls-empty {
+        color: var(--border-color);
+        opacity: 0.45;
+      }
+    }
+
+    .ls-pct {
+      font-size: 0.72rem;
+      color: var(--primary);
+      min-width: 38px;
+      opacity: 0.85;
+    }
+  }
+
+  /* Status label */
+  .ls-status {
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  .ls-skip {
+    font-size: 0.65rem;
+    color: var(--muted);
+    opacity: 0.4;
+    margin-top: -12px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+}

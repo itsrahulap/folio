@@ -1,23 +1,25 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
-import Navbar from './components/Navbar/Navbar';
-import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
-import FloatingChat from './components/FloatingChat/FloatingChat';
-import AppRouter from './router';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import Terminal from './components/Terminal/Terminal';
 import './styles/global.scss';
 
 const App: React.FC = () => {
+    const [loading, setLoading] = useState(true);
+    const handleComplete = useCallback(() => setLoading(false), []);
+
     return (
         <ThemeProvider>
-            <BrowserRouter>
-                <div className="page-container">
-                    <Navbar />
-                    <ThemeSwitcher />
-                    <AppRouter />
-                    <FloatingChat />
-                </div>
-            </BrowserRouter>
+            <div className="scanline" aria-hidden="true" />
+
+            <AnimatePresence>
+                {loading && (
+                    <LoadingScreen key="loader" onComplete={handleComplete} />
+                )}
+            </AnimatePresence>
+
+            {!loading && <Terminal />}
         </ThemeProvider>
     );
 };
