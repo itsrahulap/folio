@@ -1,0 +1,86 @@
+[
+  {
+    "name": "EnvScope",
+    "subtitle": "Context-Aware Frontend Security & Secret Detection Engine",
+    "description": "A Chrome extension that scans live JavaScript bundles for exposed secrets, combining regex and AST analysis to catch high-risk leaks with low false positives.",
+    "tech": ["JavaScript", "TypeScript", "Chrome Extensions API", "AST (Acorn)", "Regex Engine", "Web APIs"],
+    "url": "https://github.com/itsrahulap/EnvScope"
+  },
+  {
+    "name": "TestPilot",
+    "subtitle": "Intelligent Bug Detection & Telemetry Chrome Extension",
+    "description": "A silent telemetry layer for web apps that captures console errors, failed requests, and performance metrics in real time, with no backend required.",
+    "tech": ["JavaScript", "Chrome Extensions API", "Web APIs", "Performance API"],
+    "url": "https://github.com/itsrahulap/TestPilot"
+  },
+  {
+    "name": "AskSQLAI",
+    "subtitle": "Schema-Aware Natural Language to SQL Generation Engine",
+    "description": "Converts plain-English questions into safe, executable SQL by introspecting the live database schema, with layered guardrails against hallucinated tables or columns.",
+    "tech": ["React (Vite)", "TypeScript", "FastAPI", "PostgreSQL", "Gemini 2.5 Flash", "Gemini (Google ADK)", "Python"],
+    "url": "https://github.com/itsrahulap/AskSQLAI"
+  },
+  {
+    "name": "MeetlyAI",
+    "subtitle": "AI-Powered Meeting Notes, Decisions & Action Items Generator",
+    "description": "Turns raw meeting transcripts into structured summaries, decisions, and owned action items using strict JSON-schema-enforced prompting.",
+    "tech": ["React (Vite)", "TypeScript", "FastAPI", "Gemini 2.5 Flash", "Gemini (Google ADK)", "Python"],
+    "url": "https://github.com/itsrahulap/MeetlyAI"
+  },
+  {
+    "name": "SearchlyAI",
+    "subtitle": "Session-Based AI Search Engine using RAG over Documents & Web",
+    "description": "A full RAG pipeline for semantic Q&A over uploaded documents and web pages, using FAISS vector search and Gemini responses grounded strictly in retrieved context.",
+    "tech": ["React (Vite)", "TypeScript", "FastAPI", "FAISS", "Gemini 2.5 Flash", "Gemini (Google ADK)", "Python"],
+    "url": "https://github.com/itsrahulap/SearchlyAI"
+  },
+  {
+    "name": "SemanticFeed",
+    "subtitle": "AI-Powered Tech News Aggregation & Deduplication Platform",
+    "description": "Aggregates tech news from multiple sources, deduplicates related articles into unified stories, and generates concise AI summaries via scheduled background jobs.",
+    "tech": ["React (Vite)", "TypeScript", "Redux", "FastAPI", "PostgreSQL", "Gemini (Google ADK)", "Gemini 2.5 Flash", "Python"],
+    "url": "https://github.com/itsrahulap/SemanticFeed"
+  },
+  {
+    "name": "QueryDoc",
+    "subtitle": "Retrieval-Augmented Document Q&A System",
+    "description": "A secure RAG chat system for a single uploaded PDF, supporting multi-question conversations with session-isolated vector storage and no stored credentials.",
+    "tech": ["React (Vite)", "TypeScript", "FastAPI", "FAISS", "Gemini (Google ADK)", "Python"],
+    "url": "https://github.com/itsrahulap/QueryDoc"
+  },
+  {
+    "name": "AI-Powered SOAP Note Generator",
+    "subtitle": "Multi-Agent Medical Assistant",
+    "description": "A multi-agent pipeline that extracts structured clinical data from patient conversations and generates guideline-backed, safety-checked SOAP notes.",
+    "tech": ["Python", "Google ADK", "Gemini 2.5 Flash Lite", "Google Search Tool", "InMemoryRunner"],
+    "url": "https://www.kaggle.com/code/itsrahulap/multi-agent-medical-intake-soap-note-generator"
+  },
+  {
+    "name": "Readme Creator",
+    "subtitle": "AI-Powered README Generator",
+    "description": "A web app for building structured, professional READMEs from templates, with live markdown preview and Gemini-powered content optimization.",
+    "tech": ["React", "Redux", "Gemini", "Material-UI"],
+    "url": "https://github.com/itsrahulap/readmeGenerator"
+  },
+  {
+    "name": "Gemini PDF Analyzer",
+    "subtitle": "Streamlit + GenAI Resume Parsing Tool",
+    "description": "Extracts and parses resume PDFs into structured JSON, then generates a polished first-person summary using a selectable Gemini model.",
+    "tech": ["Streamlit", "Python", "Gemini 1.5 Flash/Pro"],
+    "url": "https://github.com/itsrahulap/ResumeParserAI"
+  },
+  {
+    "name": "EasyDiagno",
+    "subtitle": "AI-Powered Symptom Checker",
+    "description": "A cross-platform symptom-checking app with a chatbot interface, ML-based diagnosis, and a hospital locator with specialization filters.",
+    "tech": ["Flutter", "Firebase", "Python", "ML"],
+    "url": "https://github.com/itsrahulap/EasyDiagno"
+  },
+  {
+    "name": "Streamify",
+    "subtitle": "Full Stack Chat App",
+    "description": "A full-stack real-time messaging and video chat app supporting 100+ concurrent users, with screen sharing and image sharing built in.",
+    "tech": ["React", "Express", "WebRTC"],
+    "url": "https://github.com/itsrahulap/streamify"
+  }
+]

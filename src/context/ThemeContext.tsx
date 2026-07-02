@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState, ReactNode, FC } from 'r
 
 export type Theme = 'light' | 'dark' | 'neon' | 'pastel';
 
+export const THEME_ORDER: Theme[] = ['dark', 'neon', 'pastel', 'light'];
+
 interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;

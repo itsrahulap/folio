@@ -8,6 +8,7 @@ export interface CommandContext {
     cycleTheme: () => void;
     clear: () => void;
     triggerMatrix: () => void;
+    switchToGui: () => void;
 }
 
 export type CommandOutput = React.ReactNode;
@@ -247,6 +248,15 @@ export const COMMANDS: CommandDef[] = [
         description: 'Clear terminal',
         category: 'Terminal',
         handler: (_args, ctx) => { ctx.clear(); return null; },
+    },
+    {
+        name: 'gui',
+        description: 'Switch to minimal UI view',
+        category: 'Terminal',
+        handler: (_args, ctx) => {
+            ctx.switchToGui();
+            return null;
+        },
     },
     {
         name: 'whoami',
