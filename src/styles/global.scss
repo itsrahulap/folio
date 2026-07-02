@@ -15,12 +15,36 @@
    ========================= */
 body {
   font-family: var(--font-main);
-  background: var(--bg);
+  background-color: var(--bg);
   background-image: var(--bg-gradient);
+  background-size: var(--bg-size, auto);
   color: var(--fg);
   min-height: 100dvh;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+}
+
+/* Scanline animation */
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 240, 255, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  animation: scanline-sweep 8s linear infinite;
+}
+
+@keyframes scanline-sweep {
+  0%   { top: 0; }
+  100% { top: 100%; }
+}
+
+/* Glow utility */
+.glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
 /* =========================
@@ -90,18 +114,25 @@ button {
    Layout Container
    ========================= */
 .page-container {
-  min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
-  padding-top: 80px; /* Space for Navbar */
   display: flex;
   flex-direction: column;
+  overflow: hidden;          /* header + footer fixed via flex */
   position: relative;
-  overflow: hidden;
+}
 
-  @media (min-width: 768px) {
-    height: 100dvh;
-    overflow: hidden; /* Prevent scrolling on desktop */
-  }
+/* navbar-wrapper sits in flex flow — no sticky/fixed needed */
+.navbar-wrapper {
+  flex-shrink: 0;
+}
+
+/* scrollable content between header and footer */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* =========================

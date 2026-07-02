@@ -19,6 +19,7 @@
 
   /* Typography */
   --font-main: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -27,10 +28,18 @@
   --spacing-lg: 2rem;
   --spacing-xl: 3rem;
 
+  /* Terminal colors (shared across themes) */
+  --panel-bg: var(--glass-bg);
+  --border-color: var(--glass-border);
+  --terminal-green: #00aa55;
+  --terminal-amber: #e08800;
+  --terminal-red: #cc3344;
+  --outer-glow: none;
+
   /* =========================
      Scrollbar (Theme-Aware)
      ========================= */
-  --scrollbar-size: 10px;
+  --scrollbar-size: 6px;
   --scrollbar-radius: 999px;
 
   --scrollbar-track: transparent;
@@ -39,21 +48,41 @@
 }
 
 /* =========================
-   Dark Theme
+   Dark Theme (Terminal)
    ========================= */
 [data-theme='dark'] {
-  --bg: #101010;
-  --bg-gradient: linear-gradient(135deg, #101010 0%, #202020 100%);
-  --glass-bg: rgba(20, 20, 20, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: 16px;
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  --edge-glow: rgba(255, 255, 255, 0.1);
+  /* Exact colors from reference HTML */
+  --bg: #131313;
+  --bg-gradient: radial-gradient(#1a1a1a 1px, transparent 1px);
+  --bg-size: 24px 24px;
 
-  --fg: #f0f4f8;
-  --muted: #9fb3c8;
-  --accent: #82cfff;
-  --primary: #4dabf7;
+  --panel-bg:     #0e0e0e;  /* surface-container-lowest */
+  --panel-low:    #1c1b1b;  /* surface-container-low    */
+  --panel-mid:    #201f1f;  /* surface-container        */
+  --panel-high:   #2a2a2a;  /* surface-container-high   */
+
+  --glass-bg: #1c1b1b;
+  --glass-border: #3b494b;
+  --glass-blur: 0px;
+  --glass-shadow: none;
+  --edge-glow: rgba(0, 240, 255, 0.15);
+
+  --fg:      #e5e2e1;   /* on-surface           */
+  --muted:   #b9cacb;   /* on-surface-variant   */
+  --outline: #849495;   /* outline              */
+  --primary: #00f0ff;   /* primary-container    */
+  --on-primary: #00363a; /* on-primary          */
+  --accent:  #00dbe9;   /* primary-fixed-dim    */
+
+  --border-color: #3b494b;  /* outline-variant */
+  --terminal-green: #00f0ff;
+  --terminal-amber: #fed639;  /* tertiary-container */
+  --terminal-red: #ffb4ab;
+
+  --outer-glow: none;
+
+  --scrollbar-thumb: rgba(0, 240, 255, 0.15);
+  --scrollbar-thumb-hover: rgba(0, 240, 255, 0.3);
 }
 
 /* =========================

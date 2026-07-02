@@ -1,0 +1,156 @@
+.terminal {
+    position: relative;
+    height: 100dvh;
+    width: 100%;
+    background-color: var(--bg);
+    background-image: var(--bg-gradient);
+    background-size: var(--bg-size, auto);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    cursor: text;
+    overflow: hidden;
+}
+
+.terminal-scroll {
+    height: 100%;
+    overflow-y: auto;
+    padding: clamp(16px, 4vw, 40px);
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: clamp(0.78rem, 1.6vw, 0.95rem);
+    line-height: 1.6;
+}
+
+.terminal-welcome {
+    margin-bottom: 16px;
+    color: var(--primary);
+
+    p:first-child {
+        font-weight: 700;
+    }
+}
+
+.terminal-block {
+    margin-bottom: 10px;
+}
+
+.terminal-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.terminal-prompt {
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.terminal-command {
+    color: var(--fg);
+    word-break: break-all;
+}
+
+.terminal-input {
+    flex: 1;
+    min-width: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: var(--primary);
+    caret-shape: block;
+}
+
+.terminal-output {
+    margin-top: 4px;
+    color: var(--fg);
+}
+
+.out-title {
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.out-muted {
+    color: var(--muted);
+}
+
+.out-hint {
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+.out-error {
+    color: var(--terminal-red);
+}
+
+.out-block > * + * {
+    margin-top: 4px;
+}
+
+.out-help .out-row {
+    display: flex;
+    gap: 16px;
+
+    .out-cmd {
+        color: var(--terminal-green);
+        min-width: 110px;
+    }
+
+    .out-desc {
+        color: var(--muted);
+    }
+}
+
+.out-skill-group,
+.out-project,
+.out-exp {
+    margin-bottom: 12px;
+}
+
+.out-check {
+    color: var(--terminal-green);
+}
+
+.out-desc-line {
+    color: var(--muted);
+    padding-left: 8px;
+}
+
+.terminal-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+    opacity: 0.5;
+
+    .terminal-suggestion {
+        color: var(--muted);
+    }
+}
+
+.terminal-matrix {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 100, 0.08) 0px,
+            rgba(0, 255, 100, 0.08) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+    animation: matrix-scroll 0.6s linear infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes matrix-scroll {
+    0%   { background-position-y: 0; }
+    100% { background-position-y: 40px; }
+}
