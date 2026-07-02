@@ -1,5 +1,6 @@
 import React from 'react';
 import { resumeData } from '../../data/resume';
+import { FORTUNES } from '../../data/fortunes';
 import type { Theme } from '../../context/ThemeContext';
 
 export interface CommandContext {
@@ -79,14 +80,6 @@ const contactOutput = () =>
         React.createElement('p', { className: 'out-hint' }, 'Type: open github  |  open linkedin')
     );
 
-const FORTUNES = [
-    { quote: 'Programs must be written for people to read.', author: 'Harold Abelson' },
-    { quote: 'Simplicity is prerequisite for reliability.', author: 'Edsger W. Dijkstra' },
-    { quote: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
-    { quote: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
-    { quote: 'Make it work, make it right, make it fast.', author: 'Kent Beck' },
-];
-
 const VIRTUAL_FILES: Record<string, () => CommandOutput> = {
     'about.md': aboutOutput,
     'contact.md': contactOutput,
@@ -94,6 +87,12 @@ const VIRTUAL_FILES: Record<string, () => CommandOutput> = {
 };
 
 const LS_ENTRIES = ['about.md', 'projects/', 'experience/', 'resume.pdf', 'contact.md', 'blog/'];
+
+const resolveVirtualFile = (name: string): (() => CommandOutput) | undefined => {
+    if (VIRTUAL_FILES[name]) return VIRTUAL_FILES[name];
+    const basenameMatch = Object.keys(VIRTUAL_FILES).find(k => k.replace(/\.[^.]+$/, '') === name);
+    return basenameMatch ? VIRTUAL_FILES[basenameMatch] : undefined;
+};
 
 const SudoHire: React.FC = () => {
     const [stage, setStage] = React.useState(0);
@@ -308,8 +307,9 @@ export const COMMANDS: CommandDef[] = [
         hidden: true,
         handler: (args) => {
             const file = args[0];
-            const contentFn = file && VIRTUAL_FILES[file];
-            if (!contentFn) return React.createElement('p', { className: 'out-error' }, `cat: ${file ?? ''}: No such file or directory`);
+            if (!file) return React.createElement('p', { className: 'out-error' }, 'Usage: cat <file>');
+            const contentFn = resolveVirtualFile(file);
+            if (!contentFn) return React.createElement('p', { className: 'out-error' }, `cat: ${file}: No such file or directory`);
             return contentFn();
         },
     },
@@ -339,6 +339,12 @@ export const COMMANDS: CommandDef[] = [
                 )
             ),
     },
+    {
+        name: 'blog',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () => React.createElement('p', { className: 'out-muted' }, 'blog: under construction — check back soon.'),
+    },
 ];
 
 export function runCommand(input: string, ctx: CommandContext): CommandOutput {
@@ -351,6 +357,8 @@ export function runCommand(input: string, ctx: CommandContext): CommandOutput {
 
     const cmd = COMMANDS.find(c => c.name === name.toLowerCase());
     if (!cmd) {
+        const fileFn = resolveVirtualFile(name.toLowerCase());
+        if (fileFn) return fileFn();
         return React.createElement('p', { className: 'out-error' },
             `command not found: ${name}. Type "help" for a list of commands.`);
     }
