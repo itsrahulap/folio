@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useTheme, Theme } from '../../context/ThemeContext';
+import { useTheme, THEME_ORDER } from '../../context/ThemeContext';
 import { runCommand, COMMAND_NAMES, OPEN_TARGETS, CommandOutput } from './commands';
 import './Terminal.scss';
 
@@ -9,7 +9,6 @@ interface LineEntry {
     output: CommandOutput;
 }
 
-const THEME_ORDER: Theme[] = ['dark', 'neon', 'pastel', 'light'];
 const PROMPT = 'guest@rahulap:~$';
 
 let idCounter = 0;
@@ -39,7 +38,11 @@ const formatLastLogin = () => {
     return `${get('month')} ${get('day')} ${get('year')} ${get('hour')}:${get('minute')} IST`;
 };
 
-const Terminal: React.FC = () => {
+interface TerminalProps {
+    onSwitchToGui: () => void;
+}
+
+const Terminal: React.FC<TerminalProps> = ({ onSwitchToGui }) => {
     const { theme, setTheme } = useTheme();
     const [lines, setLines] = useState<LineEntry[]>([]);
     const [input, setInput] = useState('');
@@ -83,6 +86,7 @@ const Terminal: React.FC = () => {
                 cycleTheme,
                 clear: () => setLines([]),
                 triggerMatrix,
+                switchToGui: onSwitchToGui,
             });
             setLines(ls => [...ls, { id: idCounter++, command, output }]);
         }

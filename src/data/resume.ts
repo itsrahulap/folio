@@ -58,6 +58,7 @@ export const resumeData = {
     {
       title: "EnvScope",
       subtitle: "Context-Aware Frontend Security & Secret Detection Engine",
+      summary: "A Chrome extension that scans live JavaScript bundles for exposed secrets, combining regex and AST analysis to catch high-risk leaks with low false positives.",
       tech: [
         "JavaScript",
         "TypeScript",
@@ -80,6 +81,7 @@ export const resumeData = {
     {
       title: "TestPilot",
       subtitle: "Intelligent Bug Detection & Telemetry Chrome Extension",
+      summary: "A silent telemetry layer for web apps that captures console errors, failed requests, and performance metrics in real time, with no backend required.",
       tech: [
         "JavaScript",
         "Chrome Extensions API",
@@ -98,6 +100,7 @@ export const resumeData = {
     {
       title: "AskSQLAI",
       subtitle: "Schema-Aware Natural Language to SQL Generation Engine",
+      summary: "Converts plain-English questions into safe, executable SQL by introspecting the live database schema, with layered guardrails against hallucinated tables or columns.",
       tech: [
         "React (Vite)",
         "TypeScript",
@@ -120,6 +123,7 @@ export const resumeData = {
     {
       title: "MeetlyAI",
       subtitle: "AI-Powered Meeting Notes, Decisions & Action Items Generator",
+      summary: "Turns raw meeting transcripts into structured summaries, decisions, and owned action items using strict JSON-schema-enforced prompting.",
       tech: [
         "React (Vite)",
         "TypeScript",
@@ -139,6 +143,7 @@ export const resumeData = {
     {
       title: "SearchlyAI",
       subtitle: "Session-Based AI Search Engine using RAG over Documents & Web",
+      summary: "A full RAG pipeline for semantic Q&A over uploaded documents and web pages, using FAISS vector search and Gemini responses grounded strictly in retrieved context.",
       tech: [
         "React (Vite)",
         "TypeScript",
@@ -161,6 +166,7 @@ export const resumeData = {
     {
       title: "SemanticFeed",
       subtitle: "AI-Powered Tech News Aggregation & Deduplication Platform",
+      summary: "Aggregates tech news from multiple sources, deduplicates related articles into unified stories, and generates concise AI summaries via scheduled background jobs.",
       tech: [
         "React (Vite)",
         "TypeScript",
@@ -184,6 +190,7 @@ export const resumeData = {
     {
       title: "QueryDoc",
       subtitle: "Retrieval-Augmented Document Q&A System",
+      summary: "A secure RAG chat system for a single uploaded PDF, supporting multi-question conversations with session-isolated vector storage and no stored credentials.",
       tech: [
         "React (Vite)",
         "TypeScript",
@@ -205,6 +212,7 @@ export const resumeData = {
     {
       title: "AI-Powered SOAP Note Generator",
       subtitle: "Multi-Agent Medical Assistant",
+      summary: "A multi-agent pipeline that extracts structured clinical data from patient conversations and generates guideline-backed, safety-checked SOAP notes.",
       tech: ["Python", "Google ADK", "Gemini 2.5 Flash Lite", "Google Search Tool", "InMemoryRunner"],
       description: [
         "Multi-agent pipeline for medical intake and SOAP note creation",
@@ -218,6 +226,7 @@ export const resumeData = {
     {
       title: "Readme Creator",
       subtitle: "AI-Powered README Generator",
+      summary: "A web app for building structured, professional READMEs from templates, with live markdown preview and Gemini-powered content optimization.",
       tech: ["React", "Redux", "Gemini", "Material-UI"],
       description: [
         "Web app for creating structured, professional README files",
@@ -230,6 +239,7 @@ export const resumeData = {
     {
       title: "Gemini PDF Analyzer",
       subtitle: "Streamlit + GenAI Resume Parsing Tool",
+      summary: "Extracts and parses resume PDFs into structured JSON, then generates a polished first-person summary using a selectable Gemini model.",
       tech: ["Streamlit", "Python", "Gemini 1.5 Flash/Pro"],
       description: [
         "Extracts resume text using PyPDF2",
@@ -243,6 +253,7 @@ export const resumeData = {
     {
       title: "EasyDiagno",
       subtitle: "AI-Powered Symptom Checker",
+      summary: "A cross-platform symptom-checking app with a chatbot interface, ML-based diagnosis, and a hospital locator with specialization filters.",
       tech: ["Flutter", "Firebase", "Python", "ML"],
       description: [
         "AI-powered symptom checker with chatbot interface",
@@ -256,6 +267,7 @@ export const resumeData = {
     {
       title: "Streamify",
       subtitle: "Full Stack Chat App",
+      summary: "A full-stack real-time messaging and video chat app supporting 100+ concurrent users, with screen sharing and image sharing built in.",
       tech: ["React", "Express", "WebRTC"],
       description: [
         "Real-time messaging + video chat",
