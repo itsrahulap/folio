@@ -8,12 +8,12 @@
     color: var(--fg);
     font-family: var(--font-mono);
     cursor: text;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .terminal-scroll {
-    height: 100%;
-    overflow-y: auto;
+    min-height: 100%;
     padding: clamp(16px, 4vw, 40px);
     max-width: 900px;
     margin: 0 auto;
@@ -23,10 +23,15 @@
 
 .terminal-welcome {
     margin-bottom: 16px;
-    color: var(--primary);
 
-    p:first-child {
-        font-weight: 700;
+    > * + * {
+        margin-top: 8px;
+    }
+
+    .welcome-login {
+        p + p {
+            margin-top: 0;
+        }
     }
 }
 
@@ -90,6 +95,20 @@
 
 .out-block > * + * {
     margin-top: 4px;
+}
+
+.out-help-section {
+    margin-bottom: 14px;
+}
+
+.out-section-title {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.72rem;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed var(--border-color);
 }
 
 .out-help .out-row {
