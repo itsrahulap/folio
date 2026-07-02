@@ -204,8 +204,8 @@ export const COMMANDS: CommandDef[] = [
         handler: (args) => {
             const target = args[0];
             if (!target) return React.createElement('p', { className: 'out-error' }, 'Usage: open <n|github|linkedin>');
-            if (target === 'github') return opening('GitHub', resumeData.contact.github);
-            if (target === 'linkedin') return opening('LinkedIn', resumeData.contact.linkedin);
+            if (target.toLowerCase() === 'github') return opening('GitHub', resumeData.contact.github);
+            if (target.toLowerCase() === 'linkedin') return opening('LinkedIn', resumeData.contact.linkedin);
             const { url, title } = resolveProjectUrl(target);
             if (!url) return React.createElement('p', { className: 'out-error' }, `No project found for "${target}"`);
             return opening(title ?? target, url);
@@ -308,7 +308,7 @@ export const COMMANDS: CommandDef[] = [
         handler: (args) => {
             const file = args[0];
             if (!file) return React.createElement('p', { className: 'out-error' }, 'Usage: cat <file>');
-            const contentFn = resolveVirtualFile(file);
+            const contentFn = resolveVirtualFile(file.toLowerCase());
             if (!contentFn) return React.createElement('p', { className: 'out-error' }, `cat: ${file}: No such file or directory`);
             return contentFn();
         },
@@ -351,7 +351,7 @@ export function runCommand(input: string, ctx: CommandContext): CommandOutput {
     const [name, ...args] = input.trim().split(/\s+/);
     if (!name) return null;
 
-    if (name === 'sudo' && args.join(' ') === 'hire rahul') {
+    if (name.toLowerCase() === 'sudo' && args.join(' ').toLowerCase() === 'hire rahul') {
         return React.createElement(SudoHire);
     }
 
