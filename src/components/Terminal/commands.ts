@@ -63,17 +63,67 @@ const OpeningLink: React.FC<{ label: string; url?: string }> = ({ label, url }) 
 
 const opening = (label: string, url?: string) => React.createElement(OpeningLink, { label, url });
 
+const aboutOutput = () =>
+    React.createElement('div', { className: 'out-block' },
+        React.createElement('p', null, `Hi! I'm ${resumeData.name}.`),
+        React.createElement('p', null, resumeData.hero.bio),
+        React.createElement('p', { className: 'out-muted' }, `Location: ${resumeData.location}`)
+    );
+
+const contactOutput = () =>
+    React.createElement('div', { className: 'out-block' },
+        React.createElement('p', null, `Email: ${resumeData.contact.email}`),
+        React.createElement('p', null, `Phone: ${resumeData.contact.phone}`),
+        React.createElement('p', null, `LinkedIn: ${resumeData.contact.linkedin}`),
+        React.createElement('p', null, `GitHub: ${resumeData.contact.github}`),
+        React.createElement('p', { className: 'out-hint' }, 'Type: open github  |  open linkedin')
+    );
+
+const FORTUNES = [
+    { quote: 'Programs must be written for people to read.', author: 'Harold Abelson' },
+    { quote: 'Simplicity is prerequisite for reliability.', author: 'Edsger W. Dijkstra' },
+    { quote: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
+    { quote: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
+    { quote: 'Make it work, make it right, make it fast.', author: 'Kent Beck' },
+];
+
+const VIRTUAL_FILES: Record<string, () => CommandOutput> = {
+    'about.md': aboutOutput,
+    'contact.md': contactOutput,
+    'resume.pdf': () => opening('resume', resumeData.contact.cv),
+};
+
+const LS_ENTRIES = ['about.md', 'projects/', 'experience/', 'resume.pdf', 'contact.md', 'blog/'];
+
+const SudoHire: React.FC = () => {
+    const [stage, setStage] = React.useState(0);
+
+    React.useEffect(() => {
+        const timers = [
+            setTimeout(() => setStage(1), 400),
+            setTimeout(() => setStage(2), 900),
+            setTimeout(() => setStage(3), 1300),
+        ];
+        return () => timers.forEach(clearTimeout);
+    }, []);
+
+    return React.createElement('div', { className: 'out-block' },
+        React.createElement('p', null, '[sudo] password for recruiter:'),
+        stage >= 1 && React.createElement('p', null, '********'),
+        stage >= 2 && React.createElement('p', { className: 'out-title' }, 'Access Granted.'),
+        stage >= 3 && React.createElement('div', { className: 'out-block' },
+            React.createElement('p', null, 'Opening contact information...'),
+            contactOutput()
+        )
+    );
+};
+
 export const COMMANDS: CommandDef[] = [
     {
         name: 'about',
         description: 'About me',
         category: 'Navigation',
-        handler: () =>
-            React.createElement('div', { className: 'out-block' },
-                React.createElement('p', null, `Hi! I'm ${resumeData.name}.`),
-                React.createElement('p', null, resumeData.hero.bio),
-                React.createElement('p', { className: 'out-muted' }, `Location: ${resumeData.location}`)
-            ),
+        handler: aboutOutput,
     },
     {
         name: 'skills',
@@ -146,14 +196,7 @@ export const COMMANDS: CommandDef[] = [
         name: 'contact',
         description: 'Contact information',
         category: 'Resources',
-        handler: () =>
-            React.createElement('div', { className: 'out-block' },
-                React.createElement('p', null, `Email: ${resumeData.contact.email}`),
-                React.createElement('p', null, `Phone: ${resumeData.contact.phone}`),
-                React.createElement('p', null, `LinkedIn: ${resumeData.contact.linkedin}`),
-                React.createElement('p', null, `GitHub: ${resumeData.contact.github}`),
-                React.createElement('p', { className: 'out-hint' }, 'Type: open github  |  open linkedin')
-            ),
+        handler: contactOutput,
     },
     {
         name: 'open',
@@ -227,6 +270,75 @@ export const COMMANDS: CommandDef[] = [
             return React.createElement('p', null, 'Wake up, Neo...');
         },
     },
+    {
+        name: 'exit',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () =>
+            React.createElement('div', { className: 'out-block' },
+                React.createElement('p', null, 'Nice try.'),
+                React.createElement('p', null, "This portfolio isn't going anywhere 😄")
+            ),
+    },
+    {
+        name: 'fortune',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () => {
+            const pick = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+            return React.createElement('div', { className: 'out-block' },
+                React.createElement('p', null, 'Random developer quote:'),
+                React.createElement('p', { className: 'out-title' }, `"${pick.quote}"`),
+                React.createElement('p', { className: 'out-muted' }, `— ${pick.author}`)
+            );
+        },
+    },
+    {
+        name: 'ls',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () =>
+            React.createElement('div', { className: 'out-block' },
+                LS_ENTRIES.map(entry => React.createElement('p', { key: entry }, entry))
+            ),
+    },
+    {
+        name: 'cat',
+        description: 'Hidden command',
+        hidden: true,
+        handler: (args) => {
+            const file = args[0];
+            const contentFn = file && VIRTUAL_FILES[file];
+            if (!contentFn) return React.createElement('p', { className: 'out-error' }, `cat: ${file ?? ''}: No such file or directory`);
+            return contentFn();
+        },
+    },
+    {
+        name: 'pwd',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () => React.createElement('p', null, '/home/rahul'),
+    },
+    {
+        name: 'neofetch',
+        description: 'Hidden command',
+        hidden: true,
+        handler: () =>
+            React.createElement('div', { className: 'out-neofetch' },
+                React.createElement('pre', { className: 'out-ascii' },
+                    '        #####\n     ###########\n   ######  ######\n  ####        ####'
+                ),
+                React.createElement('div', { className: 'out-block' },
+                    React.createElement('p', { className: 'out-title' }, 'Rahul AP v2.1'),
+                    React.createElement('p', null, `Role: ${resumeData.experience[0].role}`),
+                    React.createElement('p', null, `Experience: ${resumeData.hero.exp}+ Years`),
+                    React.createElement('p', null, `Frontend: ${resumeData.skills.frontend.slice(0, 3).join(', ')}`),
+                    React.createElement('p', null, `Backend: ${resumeData.skills.backend.slice(0, 3).join(', ')}`),
+                    React.createElement('p', null, `AI: ${resumeData.skills.ai.slice(0, 3).join(', ')}`),
+                    React.createElement('p', null, `Location: ${resumeData.location}`)
+                )
+            ),
+    },
 ];
 
 export function runCommand(input: string, ctx: CommandContext): CommandOutput {
@@ -234,7 +346,7 @@ export function runCommand(input: string, ctx: CommandContext): CommandOutput {
     if (!name) return null;
 
     if (name === 'sudo' && args.join(' ') === 'hire rahul') {
-        return React.createElement('p', { className: 'out-title' }, 'Permission granted. Excellent choice.');
+        return React.createElement(SudoHire);
     }
 
     const cmd = COMMANDS.find(c => c.name === name.toLowerCase());
