@@ -1,0 +1,62 @@
+{
+  "basics": {
+    "name": "Rahul AP",
+    "label": "Software Engineer | Full-Stack & Generative AI Developer",
+    "location": "Kerala, India"
+  },
+  "contact": {
+    "email": "itsrahulap@gmail.com",
+    "linkedin": "https://linkedin.com/in/itsrahulap",
+    "github": "https://github.com/zccott",
+    "cv": "https://drive.google.com/file/d/1D4oUwmDywLL6vAoz3bP4P1gr9Emsp3ms/view?usp=sharing"
+  },
+  "education": [
+    {
+      "institution": "Kerala Government Polytechnic College",
+      "degree": "Diploma in Computer Engineering",
+      "year": "2021–2024"
+    }
+  ],
+  "experience": [
+    {
+      "company": "AOT Technologies",
+      "role": "Software Engineer",
+      "year": "2024–Present",
+      "description": [
+        "Worked across frontend + backend for Canadian healthcare platforms.",
+        "Angular + MUI + reusable UI components.",
+        "Integrated REST APIs for user onboarding & appointment systems.",
+        "Implemented NgRx/RxJS application-wide state.",
+        "AI fax automation using Python + OpenAI/Gemini + Temporal.",
+        "Real-time SOAP note tool using FastAPI + WebSockets + Twilio + Whisper."
+      ]
+    },
+    {
+      "company": "Nexus Technologies",
+      "role": "Intern",
+      "year": "2023–2024",
+      "description": [
+        "Healthcare mobile app (Find doctors by symptoms).",
+        "Designed UX/UI screens.",
+        "AI symptom analysis feature.",
+        "Flutter cross-platform development."
+      ]
+    }
+  ],
+  "skills": {
+    "frontend": ["React", "Angular", "TypeScript", "JavaScript (ES6+)", "SCSS", "HTML5", "CSS3"],
+    "backend": ["Node.js", "Express", "FastAPI", "Python", "PostgreSQL", "MongoDB", "REST APIs"],
+    "state": ["NgRx", "NGXS", "RxJS", "Redux Toolkit"],
+    "ai_tools": [
+      "GitHub Copilot",
+      "ChatGPT",
+      "Gemini CLI / AI Studio",
+      "Cloud Code (AI-assisted development)",
+      "Antigravity (AI dev tool)"
+    ],
+    "ai": ["OpenAI", "Gemini", "Google ADK", "LangChain", "Whisper", "LLM Prompt Engineering"],
+    "tools": ["Docker", "Temporal", "Git", "Cypress", "Postman", "PyPDF2", "BeautifulSoup"],
+    "realtime": ["WebSockets", "WebRTC", "Twilio"],
+    "design": ["Figma", "UI/UX"]
+  }
+}

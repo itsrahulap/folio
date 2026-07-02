@@ -12,7 +12,7 @@
     "url": "https://rahulap.vercel.app/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://rahulap.vercel.app/favicon-192x192.png",
-  "contact_email": "rahulap.js@example.com",
-  "legal_info_url": "https://rahulap.vercel.app/contact"
+  "logo_url": "https://rahulap.vercel.app/favicon192.png",
+  "contact_email": "itsrahulap@gmail.com",
+  "legal_info_url": "https://rahulap.vercel.app/"
 }

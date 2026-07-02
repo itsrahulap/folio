@@ -1,15 +1,4 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Last-Modified",
-          "value": "Sun, 23 Jun 2025 12:00:00 GMT"
-        }
-      ]
-    }
-  ],
   "rewrites": [
     {
       "source": "/(.*)",
