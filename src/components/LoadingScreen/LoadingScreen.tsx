@@ -18,7 +18,7 @@ const BOOT_LINES = [
 ];
 
 const BAR_BLOCKS = 20;
-const BOOT_DURATION = 6000;
+const BOOT_DURATION = 2200;
 
 const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
     const [progress, setProgress] = useState(0);
