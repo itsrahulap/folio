@@ -7,7 +7,7 @@ interface Props {
 }
 
 const BOOT_LINES = [
-    { ts: '0.0001', msg: 'Initializing RahulOS...' },
+    { ts: '0.0001', msg: 'Initializing Rahul AP...' },
     { ts: '0.0042', msg: 'Loading kernel...' },
     { ts: '0.0125', msg: 'Loading React...' },
     { ts: '0.0210', msg: 'Loading portfolio...' },
@@ -74,7 +74,7 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
         >
             <div className="ls-content">
                 <div className="ls-brand">
-                    RAHUL_OS_V2.0
+                    RAHUL_AP_V2.0
                     <span className="ls-cursor">▋</span>
                 </div>
 

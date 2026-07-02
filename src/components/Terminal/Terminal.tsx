@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme, Theme } from '../../context/ThemeContext';
-import { runCommand, COMMAND_NAMES, CommandOutput } from './commands';
+import { runCommand, COMMAND_NAMES, OPEN_TARGETS, CommandOutput } from './commands';
 import './Terminal.scss';
 
 interface LineEntry {
@@ -10,9 +10,34 @@ interface LineEntry {
 }
 
 const THEME_ORDER: Theme[] = ['dark', 'neon', 'pastel', 'light'];
-const WELCOME = 'Type "help" to begin.';
+const PROMPT = 'guest@rahulap:~$';
 
 let idCounter = 0;
+
+type CompletionContext = { kind: 'command' | 'open-arg'; prefix: string; options: string[] };
+
+const getCompletionContext = (value: string): CompletionContext | null => {
+    const trailingSpace = /\s$/.test(value);
+    const parts = value.split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return null;
+
+    const first = parts[0].toLowerCase();
+    if (first === 'open' && (parts.length > 1 || trailingSpace)) {
+        return { kind: 'open-arg', prefix: parts.length > 1 ? parts[1].toLowerCase() : '', options: OPEN_TARGETS };
+    }
+    if (parts.length > 1) return null;
+    return { kind: 'command', prefix: first, options: COMMAND_NAMES };
+};
+
+const formatLastLogin = () => {
+    const parts = new Intl.DateTimeFormat('en-US', {
+        month: 'short', day: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: false,
+        timeZone: 'Asia/Kolkata',
+    }).formatToParts(new Date());
+    const get = (type: string) => parts.find(p => p.type === type)?.value;
+    return `${get('month')} ${get('day')} ${get('year')} ${get('hour')}:${get('minute')} IST`;
+};
 
 const Terminal: React.FC = () => {
     const { theme, setTheme } = useTheme();
@@ -22,6 +47,7 @@ const Terminal: React.FC = () => {
     const [historyIndex, setHistoryIndex] = useState<number | null>(null);
     const [matrixActive, setMatrixActive] = useState(false);
 
+    const [lastLogin] = useState(formatLastLogin);
     const inputRef = useRef<HTMLInputElement>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -97,17 +123,18 @@ const Terminal: React.FC = () => {
 
         if (e.key === 'Tab') {
             e.preventDefault();
-            const [prefix] = input.split(/\s+/);
-            if (!prefix) return;
-            const matches = COMMAND_NAMES.filter(c => c.startsWith(prefix.toLowerCase()));
+            const ctx = getCompletionContext(input);
+            if (!ctx) return;
+            const matches = ctx.options.filter(o => o.startsWith(ctx.prefix));
             if (matches.length === 1) {
-                setInput(matches[0] + ' ');
+                setInput(ctx.kind === 'open-arg' ? `open ${matches[0]} ` : `${matches[0]} `);
             }
         }
     };
 
-    const suggestions = input.trim()
-        ? COMMAND_NAMES.filter(c => c.startsWith(input.trim().toLowerCase()) && c !== input.trim().toLowerCase())
+    const completionCtx = getCompletionContext(input);
+    const suggestions = completionCtx
+        ? completionCtx.options.filter(o => o.startsWith(completionCtx.prefix) && o !== completionCtx.prefix)
         : [];
 
     return (
@@ -116,14 +143,18 @@ const Terminal: React.FC = () => {
 
             <div className="terminal-scroll">
                 <div className="terminal-welcome">
-                    <p>RahulOS v2.0 — interactive portfolio</p>
-                    <p className="out-muted">{WELCOME}</p>
+                    <p className="out-title">Rahul AP v2.1</p>
+                    <div className="welcome-login">
+                        <p className="out-muted">Last login:</p>
+                        <p className="out-muted">{lastLogin}</p>
+                    </div>
+                    <p className="out-muted">Type &quot;help&quot; to begin.</p>
                 </div>
 
                 {lines.map(line => (
                     <div className="terminal-block" key={line.id}>
                         <div className="terminal-line">
-                            <span className="terminal-prompt">visitor@rahul:~$</span>
+                            <span className="terminal-prompt">{PROMPT}</span>
                             <span className="terminal-command">{line.command}</span>
                         </div>
                         {line.output && <div className="terminal-output">{line.output}</div>}
@@ -131,7 +162,7 @@ const Terminal: React.FC = () => {
                 ))}
 
                 <div className="terminal-line terminal-line--active">
-                    <span className="terminal-prompt">visitor@rahul:~$</span>
+                    <span className="terminal-prompt">{PROMPT}</span>
                     <input
                         ref={inputRef}
                         className="terminal-input"
