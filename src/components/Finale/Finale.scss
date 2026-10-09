@@ -1,0 +1,111 @@
+.fin {
+  min-height: 100svh;
+  padding-top: var(--s-9);
+  display: flex;
+}
+
+.fin__frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.fin__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-6);
+  padding-block: var(--s-8);
+}
+
+.fin__line {
+  font-size: var(--step-3);
+  line-height: 1;
+}
+
+.fin__email {
+  position: relative;
+  align-self: flex-start;
+  max-width: 100%;
+  font-size: clamp(2rem, 11.2vw, 10rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+  padding-bottom: 0.06em;
+
+  /* signal underline draws in from the left */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-slow) var(--ease-out);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+.fin__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  a {
+    display: inline-block;
+    padding-block: var(--s-2);
+    color: var(--muted);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--fg);
+    border-bottom-color: var(--signal);
+  }
+}
+
+.fin__colophon {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1) 0;
+  }
+
+  span:not(:last-child)::after {
+    content: '/';
+    margin-inline: var(--s-3);
+    color: var(--faint);
+  }
+}
+
+.fin__mark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 1;
+  margin-top: 0.1em;
+}

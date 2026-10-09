@@ -1,0 +1,409 @@
+/* =========================
+   Work — plates explorer
+   ========================= */
+
+.work {
+  position: relative;
+  padding-block: var(--s-9);
+
+  .signal-n {
+    color: var(--signal);
+  }
+}
+
+/* ---------- shared plate typography ---------- */
+
+.work__no {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.work__motif {
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+.work__title {
+  font-size: var(--step-3);
+  margin-top: var(--s-4);
+}
+
+.work__sub {
+  margin-top: var(--s-2);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.work__fig {
+  margin-block: var(--s-5);
+  padding-block: var(--s-4);
+  border-block: 1px solid var(--line);
+}
+
+.work__summary {
+  max-width: 62ch;
+  color: var(--fg);
+}
+
+.work__stack {
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.work__links {
+  display: flex;
+  gap: var(--s-5);
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  a {
+    padding-block: var(--s-2);
+    border-bottom: 1px solid var(--line-strong);
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+
+    &:hover {
+      color: var(--signal);
+      border-color: var(--signal);
+    }
+  }
+}
+
+/* ---------- desktop explorer ---------- */
+
+.work__explorer {
+  display: none;
+}
+
+.work__mobile {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .work__explorer {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: var(--s-8);
+    align-items: start;
+  }
+
+  .work__mobile {
+    display: none;
+  }
+}
+
+.work__index {
+  display: flex;
+  flex-direction: column;
+}
+
+.work__tab {
+  display: grid;
+  grid-template-columns: 3.2ch 1fr;
+  align-items: baseline;
+  gap: var(--s-3);
+  width: 100%;
+  padding-block: var(--s-3);
+  text-align: left;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  transition: color var(--t-fast) var(--ease-out);
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--line);
+  }
+
+  &:hover {
+    color: var(--fg);
+  }
+
+  &[aria-selected='true'] {
+    color: var(--fg);
+
+    .work__tab-n {
+      color: var(--signal);
+    }
+
+    .work__tab-t {
+      font-style: italic;
+      transform: translateX(var(--s-3));
+    }
+  }
+}
+
+.work__tab-n {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--faint);
+}
+
+.work__tab-t {
+  font-size: var(--step-2);
+  line-height: 1.05;
+  transition: transform var(--t-med) var(--ease-out);
+}
+
+.work__hint {
+  margin-top: var(--s-4);
+  color: var(--faint);
+}
+
+.work__stage {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s-5));
+
+  .work__title {
+    margin-top: var(--s-3);
+  }
+
+  .work__fig {
+    margin-block: var(--s-4);
+    padding-block: var(--s-3);
+  }
+
+  // keep the whole plate inside the viewport so sticky never clips it
+  .sch {
+    max-height: 26vh;
+  }
+
+  .work__sub {
+    font-size: var(--step-0);
+  }
+
+  @media (max-height: 880px) {
+    .work__title {
+      font-size: var(--step-2);
+    }
+
+    .work__points li:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @media (max-height: 780px) {
+    .sch {
+      max-height: 20vh;
+    }
+
+    .work__points li:nth-child(n + 3) {
+      display: none;
+    }
+  }
+}
+
+.work__plate {
+  animation: work-in var(--t-med) var(--ease-out) both;
+}
+
+@keyframes work-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.work__h {
+  margin-top: var(--s-5);
+  margin-bottom: var(--s-2);
+}
+
+.work__points {
+  display: grid;
+  gap: var(--s-1);
+  font-size: 0.92em;
+  color: var(--muted);
+
+  li {
+    position: relative;
+    padding-left: var(--s-5);
+
+    &::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--signal);
+    }
+  }
+}
+
+/* ---------- mobile / tablet track ---------- */
+
+.work__counter {
+  display: flex;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.work__swipe {
+  margin-left: auto;
+  color: var(--faint);
+}
+
+.work__track {
+  display: flex;
+  gap: var(--s-4);
+  // full-bleed inside the frame without page overflow
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+  padding-bottom: var(--s-4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+.work__card {
+  flex: 0 0 min(86vw, 480px);
+  scroll-snap-align: start;
+  padding: var(--s-5) var(--s-4);
+  border: 1px solid var(--line-strong);
+
+  .work__fig {
+    margin-top: var(--s-4);
+  }
+
+  .work__title {
+    margin-top: 0;
+    font-size: var(--step-3);
+  }
+
+  .work__summary {
+    margin-top: var(--s-4);
+  }
+}
+
+/* =========================
+   Schematic
+   ========================= */
+
+.sch {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+
+  text {
+    font-family: var(--font-mono);
+  }
+}
+
+.sch__grid {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  fill: none;
+
+  text {
+    fill: var(--muted);
+    stroke: none;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+}
+
+.sch__arrow {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+}
+
+.sch__edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  animation: sch-draw 700ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--i) * 70ms);
+}
+
+.sch__signal {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 13;
+  animation:
+    sch-fade 400ms var(--ease-out) 700ms both,
+    sch-flow 4s linear 700ms infinite;
+}
+
+.sch__node {
+  animation: sch-fade var(--t-med) var(--ease-out) both;
+  animation-delay: calc(var(--i) * 60ms);
+
+  rect {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1;
+  }
+
+  text {
+    fill: var(--fg);
+    font-size: 13px;
+  }
+
+  &.is-core rect {
+    stroke: var(--signal);
+    stroke-width: 1.5;
+  }
+
+  &.is-store rect {
+    stroke-dasharray: 4 3;
+  }
+}
+
+@keyframes sch-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sch-flow {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+
+@keyframes sch-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sch__signal {
+    animation: none;
+  }
+
+  // global rule zeroes durations, not delays: show final state at once
+  .sch__edge,
+  .sch__node {
+    animation-delay: 0s;
+  }
+}

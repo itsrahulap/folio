@@ -1,130 +1,93 @@
+/* =====================================================
+   SURVEY — design tokens
+   Cartographic engineering atlas: ink, paper, one signal.
+   ===================================================== */
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Ink (default) */
+  --bg: #0b0b0c;
+  --surface: #121214;          /* raised plates, console */
+  --surface-2: #19191c;
+  --fg: #ece8e1;               /* warm paper white */
+  --muted: #918d86;            /* ≥ 5.5:1 on --bg */
+  --faint: #5c5953;            /* decorative only, never body text */
+  --line: rgba(236, 232, 225, 0.1);
+  --line-strong: rgba(236, 232, 225, 0.22);
+  --signal: #ff5a1f;           /* the single accent */
+  --signal-ink: #0b0b0c;       /* text on signal */
+  --signal-soft: rgba(255, 90, 31, 0.14);
+
+  /* Field shader colours (r g b, 0–1) */
+  --field-bg: 0.043 0.043 0.047;
+  --field-line: 0.925 0.91 0.882;
+  --field-signal: 1 0.353 0.122;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Paper */
+  --bg: #efebe3;
+  --surface: #e7e2d8;
+  --surface-2: #ddd7cb;
+  --fg: #16140f;
+  --muted: #5d5850;            /* ≥ 6:1 on --bg */
+  --faint: #a29c90;
+  --line: rgba(22, 20, 15, 0.12);
+  --line-strong: rgba(22, 20, 15, 0.28);
+  --signal: #d23f08;           /* large text & graphics only on paper */
+  --signal-ink: #fdfbf7;
+  --signal-soft: rgba(210, 63, 8, 0.12);
+
+  --field-bg: 0.937 0.922 0.89;
+  --field-line: 0.086 0.078 0.059;
+  --field-signal: 0.824 0.247 0.031;
+}
+
 :root {
-  /* =========================
-     Default Theme (Neo Light Glass)
-     ========================= */
+  /* Type families */
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --bg: #f0f4f8;
-  --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-blur: 12px;
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  --edge-glow: rgba(255, 255, 255, 0.8);
-
-  --fg: #102a43;
-  --muted: #627d98;
-  --accent: #334e68;
-  --primary: #007bff;
-  --secondary: #6c757d;
-
-  /* Typography */
-  --font-main: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* Fluid type scale (360px → 1440px) */
+  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);   /* mono labels */
+  --step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);  /* body */
+  --step-1: clamp(1.15rem, 1.05rem + 0.45vw, 1.4rem);   /* lead */
+  --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2.25rem);
+  --step-3: clamp(2.1rem, 1.6rem + 2.2vw, 3.6rem);
+  --step-4: clamp(2.8rem, 1.9rem + 4vw, 6rem);
+  --step-5: clamp(3.6rem, 2rem + 7.2vw, 10.5rem);       /* display */
 
   /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+  --s-9: clamp(96px, 14vw, 176px);   /* between sections */
 
-  /* Terminal colors (shared across themes) */
-  --panel-bg: var(--glass-bg);
-  --border-color: var(--glass-border);
-  --terminal-green: #00aa55;
-  --terminal-amber: #e08800;
-  --terminal-red: #cc3344;
-  --outer-glow: none;
+  /* Layout */
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1320px;
+  --nav-h: 64px;
 
-  /* =========================
-     Scrollbar (Theme-Aware)
-     ========================= */
-  --scrollbar-size: 6px;
-  --scrollbar-radius: 999px;
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-slow: 900ms;
 
-  --scrollbar-track: transparent;
-  --scrollbar-thumb: color-mix(in srgb, var(--fg) 25%, transparent);
-  --scrollbar-thumb-hover: color-mix(in srgb, var(--fg) 45%, transparent);
-}
-
-/* =========================
-   Dark Theme (Terminal)
-   ========================= */
-[data-theme='dark'] {
-  /* Exact colors from reference HTML */
-  --bg: #131313;
-  --bg-gradient: radial-gradient(#1a1a1a 1px, transparent 1px);
-  --bg-size: 24px 24px;
-
-  --panel-bg:     #0e0e0e;  /* surface-container-lowest */
-  --panel-low:    #1c1b1b;  /* surface-container-low    */
-  --panel-mid:    #201f1f;  /* surface-container        */
-  --panel-high:   #2a2a2a;  /* surface-container-high   */
-
-  --glass-bg: #1c1b1b;
-  --glass-border: #3b494b;
-  --glass-blur: 0px;
-  --glass-shadow: none;
-  --edge-glow: rgba(0, 240, 255, 0.15);
-
-  --fg:      #e5e2e1;   /* on-surface           */
-  --muted:   #b9cacb;   /* on-surface-variant   */
-  --outline: #849495;   /* outline              */
-  --primary: #00f0ff;   /* primary-container    */
-  --on-primary: #00363a; /* on-primary          */
-  --accent:  #00dbe9;   /* primary-fixed-dim    */
-
-  --border-color: #3b494b;  /* outline-variant */
-  --terminal-green: #00f0ff;
-  --terminal-amber: #fed639;  /* tertiary-container */
-  --terminal-red: #ffb4ab;
-
-  --outer-glow: none;
-
-  --scrollbar-thumb: rgba(0, 240, 255, 0.15);
-  --scrollbar-thumb-hover: rgba(0, 240, 255, 0.3);
-}
-
-/* =========================
-   Neon Theme
-   ========================= */
-[data-theme='neon'] {
-  --bg: #050505;
-  --bg-gradient: linear-gradient(135deg, #050505 0%, #0a0a0a 100%);
-  --glass-bg: rgba(10, 10, 10, 0.7);
-  --glass-border: rgba(0, 255, 242, 0.3);
-  --glass-blur: 20px;
-  --glass-shadow: 0 0 20px rgba(0, 255, 242, 0.2);
-  --edge-glow: rgba(0, 255, 242, 0.6);
-
-  --fg: #e0e0e0;
-  --muted: #a0a0a0;
-  --accent: #00fff2;
-  --primary: #ff00ff;
-
-  /* Stronger scrollbar contrast for neon */
-  --scrollbar-thumb: color-mix(in srgb, var(--accent) 50%, transparent);
-  --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 75%, transparent);
-}
-
-/* =========================
-   Pastel Theme
-   ========================= */
-[data-theme='pastel'] {
-  --bg: #fdfbf7;
-  --bg-gradient: linear-gradient(135deg, #fdfbf7 0%, #e6e6fa 100%);
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-blur: 15px;
-  --glass-shadow: 0 8px 32px 0 rgba(200, 200, 255, 0.2);
-  --edge-glow: rgba(255, 255, 255, 0.9);
-
-  --fg: #4a4a4a;
-  --muted: #8a8a8a;
-  --accent: #ffb7b2;
-  --primary: #ff9aa2;
-
-  /* Softer scrollbar for pastel */
-  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
-  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.35);
+  /* Legacy aliases used by the console */
+  --primary: var(--signal);
+  --accent: var(--signal);
+  --border-color: var(--line-strong);
+  --font-main: var(--font-sans);
 }

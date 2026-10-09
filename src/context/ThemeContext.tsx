@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode, FC } from 'react';
 
-export type Theme = 'light' | 'dark' | 'neon' | 'pastel';
+export type Theme = 'light' | 'dark';
 
-export const THEME_ORDER: Theme[] = ['dark', 'neon', 'pastel', 'light'];
+export const THEME_ORDER: Theme[] = ['dark', 'light'];
 
 interface ThemeContextType {
     theme: Theme;
@@ -13,13 +13,16 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [theme, setTheme] = useState<Theme>(() => {
-        const savedTheme = localStorage.getItem('theme');
-        return (savedTheme as Theme) || 'dark';
+        try {
+            return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+        } catch {
+            return 'dark';
+        }
     });
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
+        try { localStorage.setItem('theme', theme); } catch { /* storage blocked */ }
     }, [theme]);
 
     return (

@@ -1,46 +1,63 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import './styles/global.scss'; // first, so component styles can override the shared primitives
 import { ThemeProvider } from './context/ThemeContext';
-import LoadingScreen from './components/LoadingScreen/LoadingScreen';
-import Terminal from './components/Terminal/Terminal';
-import PortfolioView from './components/PortfolioView/PortfolioView';
-import ModeSwitch, { ViewMode } from './components/ModeSwitch/ModeSwitch';
-import './styles/global.scss';
+import Field from './components/Field/Field';
+import Nav from './components/Nav/Nav';
+import Hero from './components/Hero/Hero';
+import Work from './components/Work/Work';
+import System from './components/System/System';
+import Journey from './components/Journey/Journey';
+import Finale from './components/Finale/Finale';
+import Console from './components/Console/Console';
 
-const BOOTED_KEY = 'booted';
-
-// Show the boot screen only on the first visit of a session, and never for reduced motion.
-const shouldShowLoader = () => {
-    try {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-        return !sessionStorage.getItem(BOOTED_KEY);
-    } catch {
-        return true;
-    }
-};
+const isTyping = (el: EventTarget | null) =>
+    el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
 
 const App: React.FC = () => {
-    const [loading, setLoading] = useState(shouldShowLoader);
-    const [view, setView] = useState<ViewMode>('terminal');
-    const handleComplete = useCallback(() => {
-        try { sessionStorage.setItem(BOOTED_KEY, '1'); } catch { /* storage blocked */ }
-        setLoading(false);
+    const [consoleOpen, setConsoleOpen] = useState(false);
+    const openConsole = useCallback(() => setConsoleOpen(true), []);
+    const closeConsole = useCallback(() => setConsoleOpen(false), []);
+
+    // `~` or ` toggles the console from anywhere outside a text field.
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if ((e.key === '`' || e.key === '~') && !isTyping(e.target)) {
+                e.preventDefault();
+                setConsoleOpen(o => !o);
+            }
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, []);
+
+    // One observer reveals every `.reveal` element as it scrolls in.
+    useEffect(() => {
+        document.documentElement.classList.add('js');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -10% 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        return () => io.disconnect();
     }, []);
 
     return (
         <ThemeProvider>
-            {loading ? (
-                <LoadingScreen onComplete={handleComplete} />
-            ) : (
-                <>
-                    <ModeSwitch mode={view} onChange={setView} />
-                    <div id="panel-terminal" role="tabpanel" aria-labelledby="tab-terminal" style={{ display: view === 'terminal' ? 'contents' : 'none' }}>
-                        <Terminal onSwitchToGui={() => setView('gui')} />
-                    </div>
-                    <div id="panel-gui" role="tabpanel" aria-labelledby="tab-gui" style={{ display: view === 'gui' ? 'contents' : 'none' }}>
-                        <PortfolioView />
-                    </div>
-                </>
-            )}
+            <a className="skip-link" href="#main">Skip to content</a>
+            <Field />
+            <Nav onOpenConsole={openConsole} />
+            <main id="main">
+                <Hero onOpenConsole={openConsole} />
+                <Work />
+                <System />
+                <Journey />
+                <Finale />
+            </main>
+            <Console open={consoleOpen} onClose={closeConsole} />
         </ThemeProvider>
     );
 };

@@ -1,0 +1,320 @@
+.jr {
+  padding-top: var(--s-9);
+}
+
+/* ---------- Survey axis (≥ 768px) ---------- */
+.jr__chart {
+  --lab: clamp(160px, 18vw, 240px);
+  position: relative;
+  display: grid;
+  gap: var(--s-5);
+  padding-bottom: var(--s-7);
+  margin-bottom: var(--s-8);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.jr__plot {
+  position: absolute;
+  top: 0;
+  bottom: var(--s-5);
+  left: calc(var(--lab) + var(--s-5));
+  right: 0;
+  border-bottom: 1px solid var(--line-strong);
+  pointer-events: none;
+}
+
+.jr__tick,
+.jr__now {
+  position: absolute;
+  top: calc(-1 * var(--s-3));
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.jr__tick::after {
+  content: '';
+  position: absolute;
+  bottom: calc(-1 * var(--s-2));
+  left: 0;
+  width: 1px;
+  height: var(--s-2);
+  background: var(--line-strong);
+}
+
+.jr__tick-label,
+.jr__now-label {
+  position: absolute;
+  top: calc(100% + var(--s-3));
+  left: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.jr__now {
+  background: var(--signal);
+  opacity: 0.6;
+
+  .jr__now-label {
+    top: auto;
+    bottom: calc(100% + var(--s-1));
+    color: var(--signal);
+    text-transform: uppercase;
+  }
+}
+
+.jr__lane {
+  display: grid;
+  grid-template-columns: var(--lab) 1fr;
+  gap: var(--s-5);
+  align-items: end;
+  padding-top: var(--s-4);
+}
+
+.jr__lane-label {
+  display: flex;
+  gap: var(--s-3);
+  line-height: 1.4;
+}
+
+.jr__code {
+  color: var(--faint);
+}
+
+.jr__track {
+  position: relative;
+  height: var(--s-6);
+}
+
+.jr__bar {
+  position: absolute;
+  bottom: var(--s-2);
+  height: 3px;
+  background: var(--fg);
+  transform-origin: left;
+
+  /* survey end caps */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 1px;
+    height: 13px;
+    background: inherit;
+  }
+  &::before { left: 0; }
+  &::after { right: 0; }
+}
+
+.jr__bar-years {
+  position: absolute;
+  bottom: calc(var(--s-2) + var(--s-3));
+  left: 0;
+  white-space: nowrap;
+}
+
+.jr__lane.is-current {
+  .jr__lane-label { color: var(--fg); }
+  .jr__code { color: var(--signal); }
+  .jr__bar { background: var(--signal); }
+  .jr__bar-years { color: var(--signal); }
+
+  /* live marker at "now" */
+  .jr__bar::after {
+    top: -4px;
+    right: -5px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+}
+
+.reveal.is-in .jr__bar {
+  animation: jr-draw var(--t-slow) var(--ease-out) both;
+}
+
+@keyframes jr-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- Editorial blocks ---------- */
+.jr__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-7) var(--s-6);
+}
+
+.jr__entry {
+  position: relative;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line-strong);
+
+  &.is-current {
+    border-top-color: var(--signal);
+  }
+}
+
+.jr__node {
+  display: none;
+}
+
+.jr__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.jr__live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--signal);
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: jr-live calc(var(--t-slow) * 2) var(--ease-in-out) infinite alternate;
+  }
+}
+
+@keyframes jr-live {
+  from { opacity: 1; }
+  to { opacity: 0.25; }
+}
+
+.jr__title {
+  font-size: var(--step-3);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.is-current .jr__title {
+  font-style: italic;
+}
+
+.jr__org {
+  margin-top: var(--s-3);
+  font-size: var(--step-1);
+  color: var(--muted);
+}
+
+.jr__points {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-5);
+  color: var(--muted);
+
+  li {
+    position: relative;
+    padding-left: var(--s-5);
+
+    &::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--faint);
+    }
+  }
+}
+
+/* ---------- Tablet: one entry per row, two-column block ---------- */
+@media (max-width: 1023px) {
+  .jr__list {
+    grid-template-columns: 1fr;
+  }
+
+  .jr__entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    column-gap: var(--s-6);
+    align-content: start;
+
+    > :not(.jr__points) { grid-column: 1; }
+    .jr__points {
+      grid-column: 2;
+      grid-row: 1 / span 4;
+      margin-top: 0;
+    }
+  }
+}
+
+/* ---------- Mobile: vertical axis on the left ---------- */
+@media (max-width: 767px) {
+  .jr__chart {
+    display: none;
+  }
+
+  .jr__list {
+    position: relative;
+    gap: var(--s-7);
+    padding-left: var(--s-6);
+
+    /* the axis */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: var(--s-2);
+      bottom: 0;
+      width: 1px;
+      background: var(--line-strong);
+    }
+  }
+
+  .jr__entry {
+    display: block;
+    padding-top: 0;
+    border-top: 0;
+
+    .jr__points { margin-top: var(--s-4); }
+  }
+
+  .jr__node {
+    display: block;
+    position: absolute;
+    left: calc(-1 * var(--s-6));
+    top: 0.35em;
+    width: 11px;
+    height: 11px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+  }
+
+  /* current role: signal span on the axis down to "now" */
+  .jr__entry.is-current {
+    .jr__node {
+      border-radius: 50%;
+      border-color: var(--signal);
+      background: var(--signal);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * var(--s-6) + 4px);
+      top: 0.35em;
+      bottom: 0;
+      width: 3px;
+      background: var(--signal);
+    }
+  }
+
+  .jr__title {
+    font-size: var(--step-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jr__live::before {
+    animation: none;
+  }
+}

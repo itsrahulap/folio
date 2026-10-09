@@ -1,0 +1,301 @@
+.hero {
+    position: relative;
+    min-height: 100svh;
+    padding-top: var(--nav-h);
+    display: flex;
+}
+
+.hero-frame {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--s-6);
+    padding-top: var(--s-7);
+    padding-bottom: var(--s-6);
+}
+
+.hero-coords {
+    display: flex;
+    gap: var(--s-5);
+    animation: hero-fade var(--t-slow) var(--ease-out) 0.1s both;
+}
+
+/* ---------- Name: masked rise, line by line ---------- */
+
+.hero-name {
+    align-self: center;
+    font-size: clamp(5.5rem, 3rem + 13vw, 15rem);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    margin-left: -0.04em; // optical: align the serif stem with the frame edge
+
+    em {
+        padding-left: 0.9em; // stagger the second line, like a map title set along a contour
+    }
+}
+
+.hero-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em; // keep descenders/italic overhang inside the mask
+
+    > span {
+        display: inline-block;
+        animation: hero-rise 1.1s var(--ease-out) both;
+    }
+
+    &:nth-child(2) > span {
+        animation-delay: 0.12s;
+    }
+}
+
+/* ---------- Summit marker: the field's peak sits here ---------- */
+
+.hero-summit {
+    position: absolute;
+    top: 46%;
+    right: 20%;
+    width: 0;
+    height: 0;
+    animation: hero-fade 1.2s var(--ease-out) 0.6s both;
+}
+
+.hero-summit-cross {
+    position: absolute;
+    left: -14px;
+    top: -14px;
+    width: 28px;
+    height: 28px;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        background: var(--signal);
+    }
+
+    &::before {
+        left: 50%;
+        top: 0;
+        width: 1px;
+        height: 100%;
+    }
+
+    &::after {
+        top: 50%;
+        left: 0;
+        height: 1px;
+        width: 100%;
+    }
+}
+
+.hero-summit-note {
+    position: absolute;
+    left: 28px;
+    bottom: 28px;
+    width: max-content;
+    max-width: 22ch;
+    padding-left: var(--s-3);
+    border-left: 1px solid var(--line-strong);
+    line-height: 1.5;
+    text-transform: none;
+    letter-spacing: 0.02em;
+
+    b {
+        display: block;
+        color: var(--signal);
+        font-weight: 500;
+    }
+
+    // leader line from crosshair to the note
+    &::before {
+        content: '';
+        position: absolute;
+        left: -28px;
+        bottom: -28px;
+        width: 40px;
+        height: 1px;
+        background: var(--line-strong);
+        transform-origin: left;
+        transform: rotate(-45deg);
+    }
+}
+
+/* ---------- Foot: statement, actions, legend ---------- */
+
+.hero-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 4fr) auto;
+    align-items: end;
+    gap: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+    animation: hero-fade var(--t-slow) var(--ease-out) 0.45s both;
+}
+
+.hero-statement {
+    max-width: 38ch;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3) var(--s-5);
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: 44px;
+    padding: 0 var(--s-5);
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+
+    span {
+        transition: transform var(--t-med) var(--ease-out);
+    }
+
+    &:hover {
+        background: var(--signal);
+        color: var(--signal-ink);
+
+        span {
+            transform: translateY(3px);
+        }
+    }
+}
+
+.hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-height: 44px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg);
+    transition: color var(--t-fast) var(--ease-out);
+
+    &:hover {
+        color: var(--signal);
+    }
+
+    kbd {
+        display: inline-grid;
+        place-items: center;
+        min-width: 22px;
+        height: 22px;
+        border: 1px solid var(--line-strong);
+        font-family: inherit;
+    }
+}
+
+.hero-legend {
+    display: grid;
+    gap: var(--s-1);
+    text-transform: none;
+    letter-spacing: 0.02em;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: var(--s-2);
+    }
+
+    dd {
+        margin: 0;
+    }
+
+    i {
+        display: block;
+        width: 22px;
+    }
+}
+
+.lg-major { border-top: 1.5px solid var(--fg); opacity: 0.6; }
+.lg-minor { border-top: 1px solid var(--fg); opacity: 0.3; }
+.lg-signal { border-top: 1.5px solid var(--signal); }
+
+@media (hover: none) {
+    .hero-legend div:last-child {
+        display: none;
+    }
+}
+
+/* ---------- Tablet & mobile: name on top, summit beneath it, actions stacked ---------- */
+
+@media (max-width: 1023px) {
+    .hero-foot {
+        grid-template-columns: 1fr;
+        gap: var(--s-5);
+    }
+
+    .hero-legend {
+        display: none;
+    }
+
+    .hero-summit {
+        top: 50%;
+        right: 32%;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-frame {
+        padding-top: var(--s-5);
+    }
+
+    .hero-coords {
+        justify-content: space-between;
+    }
+
+    .hero-name {
+        align-self: start;
+        font-size: clamp(5rem, 31vw, 8rem);
+        margin-top: var(--s-7);
+
+        em {
+            padding-left: 0.6em;
+        }
+    }
+
+    .hero-summit {
+        top: 53%;
+        right: 52%;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-cta {
+        justify-content: space-between;
+    }
+
+    .hero-link {
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+    }
+}
+
+@keyframes hero-rise {
+    from { transform: translateY(105%); }
+    to { transform: none; }
+}
+
+@keyframes hero-fade {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
