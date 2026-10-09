@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import './LoadingScreen.scss';
 
 interface Props {
@@ -18,7 +17,7 @@ const BOOT_LINES = [
 ];
 
 const BAR_BLOCKS = 20;
-const BOOT_DURATION = 2200;
+const BOOT_DURATION = 250;
 
 const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
     const [progress, setProgress] = useState(0);
@@ -34,14 +33,14 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
     }, [skipped, onComplete]);
 
     useEffect(() => {
-        const tickMs = 60;
+        const tickMs = 30;
         const step = 100 / (BOOT_DURATION / tickMs);
         const progressTimer = setInterval(() => {
             setProgress(p => {
                 const next = p + step;
                 if (next >= 100) {
                     clearInterval(progressTimer);
-                    setTimeout(onComplete, 350);
+                    setTimeout(onComplete, 0);
                     return 100;
                 }
                 return next;
@@ -67,11 +66,7 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
     const empty  = BAR_BLOCKS - filled;
 
     return (
-        <motion.div
-            className="loading-screen"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-        >
+        <div className="loading-screen" role="status" aria-label="Loading">
             <div className="ls-content">
                 <div className="ls-brand">
                     RAHUL_AP_V2.0
@@ -80,16 +75,10 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
 
                 <div className="ls-lines">
                     {BOOT_LINES.slice(0, lineCount).map((line, i) => (
-                        <motion.p
-                            key={i}
-                            className="ls-line"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.25 }}
-                        >
+                        <p key={i} className="ls-line">
                             <span className="ls-ts">[{line.ts}]</span>
                             <span className="ls-msg"> {line.msg}</span>
-                        </motion.p>
+                        </p>
                     ))}
                 </div>
 
@@ -107,7 +96,7 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
 
                 <p className="ls-skip">press any key to skip</p>
             </div>
-        </motion.div>
+        </div>
     );
 };
 

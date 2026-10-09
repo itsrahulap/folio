@@ -6,12 +6,11 @@ export default defineConfig({
 
   // 🔥 Performance optimizations
   build: {
-    // Split vendor libraries (React, Framer Motion, etc.)
+    // Split vendor libraries
     rollupOptions: {
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
-          motion: ['framer-motion'],
         }
       }
     },

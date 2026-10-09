@@ -15,6 +15,8 @@
 .terminal-scroll {
     min-height: 100%;
     padding: clamp(16px, 4vw, 40px);
+    // clear the fixed mode switch on narrow screens
+    padding-top: max(clamp(16px, 4vw, 40px), 64px);
     max-width: 900px;
     margin: 0 auto;
     font-size: clamp(0.78rem, 1.6vw, 0.95rem);
@@ -67,6 +69,11 @@
     font-size: inherit;
     caret-color: var(--primary);
     caret-shape: block;
+
+    /* the block caret is the focus indicator for the prompt */
+    &:focus-visible {
+        outline: none;
+    }
 }
 
 .terminal-output {
